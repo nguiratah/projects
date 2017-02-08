@@ -1,0 +1,10 @@
+Img = imread('Lena256B.bmp');
+Img = rgb2gray(Img);
+dctfun = @(block) dct2(block.data);
+Img_dct = blockproc(Img, [8 8], dctfun);
+quan_dctfun = @(block) quan_dct(block.data, 8);
+QImg_dct= blockproc(Img_dct, [8 8], quan_dctfun);
+idctfun = @(block) idct2(block.data);
+Rimg = blockproc(QImg_dct,[8 8], 'idct2');
+figure;
+imshow(uint8(Rimg));

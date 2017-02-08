@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<appProperties xmlns="http://schemas.mathworks.com/matlab/app/2012/appProperties" signature="EED16ABAD8672E9E09654E50133E8DD707CA274B">
+
+  <entryPoint>odesolver</entryPoint>
+
+  <name>ODESOLVER_GUI</name>
+
+  <version>1.0</version>
+
+  <createdByMATLABRelease>(R2012b)</createdByMATLABRelease>
+
+  <GUID>3be4193d-8777-470b-8443-0e7e8cc7e5b8</GUID>
+
+  <summary>It uses MATLAB ode solver to solves equation of type y'=f(y,t)All you need to do in this GUI is to determine you equation and initial value</summary>
+
+  <author>
+    <name>Gentian Zavalani</name>
+    <contact></contact>
+    <organization></organization>
+  </author>
+
+  <supportedPlatforms/>
+
+  <requiredProducts>
+    <product identifier="1" name="MATLAB" version="8.0"/>
+    <product identifier="17" name="Image Processing Toolbox" version="8.1"/>
+  </requiredProducts>
+
+  <numFiles>2</numFiles>
+
+  <created>2014-01-20T20:46:45Z</created>
+
+  <appEntries>
+    <appFile>/odesolver.m</appFile>
+    <appFile>/odesolver.fig</appFile>
+  </appEntries>
+
+</appProperties>

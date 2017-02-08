@@ -1,0 +1,92 @@
+10
+
+dir
+260
+svn+ssh://fusiform.bic.berkeley.edu/auto/fhome/svn/tlab/trunk/src/tutorials/data
+svn+ssh://fusiform.bic.berkeley.edu/auto/fhome/svn/tlab
+
+
+
+2010-09-09T22:36:12.635513Z
+251
+fet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9431706d-7860-0410-b998-d7eeeacd3889
+
+ov_avg
+dir
+
+mld_bad
+dir
+
+l2a_bad
+dir
+
+mld_good
+dir
+
+vox_data.mat
+file
+
+
+
+
+2010-09-08T22:42:27.074000Z
+c12be70d1e326eb7a7ae812d6d6e8932
+2010-09-09T22:36:12.635513Z
+251
+fet
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+60349
+
+l2a_good
+dir
+
+all_stims
+dir
+
+mld_avg
+dir
+
+ov_bad
+dir
+
+l2a_avg
+dir
+
+ov_good
+dir
+

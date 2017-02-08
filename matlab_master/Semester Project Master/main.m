@@ -1,0 +1,49 @@
+%%%%%%%%%%% MAAIIN%%%%%%%%%%%%%%
+shift1=1.7;
+shift2=3.9;
+x=[];
+y = [];
+Ts = 0.01;
+x1 = [zeros(1, 200)';conv(ones(1, 400)', ones(1, 400)');zeros(1, 100)'];
+y1 = [zeros(1, 200)';zeros(1, shift1/Ts)'; conv(ones(1, 400)', ones(1, 400)');zeros(1, 100)'];  
+x2 = [zeros(1, 10)';conv(ones(1, 400)', ones(1, 400)'); zeros(1, round(shift2/Ts))';zeros(1, 10)'];
+y2 = [zeros(1, 10+round((shift2-shift1)/Ts))'; conv(ones(1, 400)', ones(1, 400)'); zeros(1, 10)';zeros(1, shift1/Ts)'];
+x=[x1; x2]; y=[y1; y2];
+trials = 1;
+K=140;
+w=[-0.5,0.5]';
+delay = [1 1];
+for L=2:45
+window1 =zeros(1, 140);
+windowSHIFTED1 = window1;
+window2 =zeros(1, 140);
+windowSHIFTED2 = window1;
+window1(1:1+L)=hamming(L+1);
+windowSHIFTED1(2:2+L) =hamming(L+1);
+window2(10:10+L)=hamming(L+1);
+windowSHIFTED2(13:13+L) =hamming(L+1);
+% % % % % L = 80;
+% % % % % filter1= [zeros(1,165)';hamming(150);zeros(1, shift1/Ts)';zeros(1, 100)'];
+% % % % % filter1(end:length(x))=0;
+% % % % % filter1shifted = [zeros(1, shift1/Ts)';filter1];
+% % % % % filter1shifted(length(filter1)+1:end)=[];
+% % % % % filter2= [zeros(1,250)';hamming(150);zeros(1, shift2/Ts)';zeros(1, 100)'];
+% % % % % filter2(length(x2)+1:end)=[];
+% % % % % filter2shifted = [zeros(1, shift2/Ts-70)';filter1shifted];
+% % % % % filter2shifted(length(filter2)+1:end)=[];
+% % % % % filter2=[zeros(1, length(x1))';filter2];
+% % % % % filter2shifted = [zeros(1, length(x1))';filter2shifted];
+% % % % % X1 = x.*filter1;
+% % % % % X2 = x.*filter2;
+% % % % % Y1 = y.*filter1shifted;
+% % % % % Y2 = y.*filter2shifted;
+fouriercoefxn1=(findftv2(Ts, K, x, w, window1));
+fouriercoefyn1=(findftv2(Ts, K, y, w, windowSHIFTED1));
+fouriercoefxn2=(findftv2(Ts, K, x, w, window2));
+fouriercoefyn2=(findftv2(Ts, K, y, w, windowSHIFTED2));
+poly1 = inv(w'*w)*w'*angle(fouriercoefyn1.*conj(fouriercoefxn1));
+poly2 = inv(w'*w)*w'*angle(fouriercoefyn2.*conj(fouriercoefxn2));
+delay1=abs([poly1(1)-shift1,poly2(1)-shift2]);
+delay = [delay;delay1];
+L
+end

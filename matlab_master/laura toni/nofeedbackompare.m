@@ -1,0 +1,65 @@
+function[] = nofeedbackompare(lambda, TD, D, N,  G, n_samples, K)
+G =10;
+n_samples =25;
+N  = 25;
+%L2 = 29;
+lambda =1;
+D =4;
+TD =60;
+g = 5;
+m=1;
+H =1;
+for i = 1 : n_samples;
+    a1(i) = 0;
+    b1(i) = 0;
+    c1(i) = 0;
+    d1(i) = 0;
+end
+for l =1 :H
+for i = 1 : n_samples
+  s(i) = i;
+  for r = 1 : g*s(i)
+  K(r) =r;
+  a(r, i) = nofeedbackgenerations(lambda, TD, D, N, 0.5, G, s(i), K(r));%/(H*floor(K(r)*N/s(i)));
+  b(r, i) = nofeedbacksliding(lambda, TD, D, N, 0.5, G, s(i), K(r), m);%/(H*floor(K(r)*N/s(i)));
+  c(r, i) = nofeedbackgenerations(lambda, TD, D, N, 0.75, G, s(i), K(r));%/(H*floor(K(r)*N/s(i)));
+  d(r, i)=  nofeedbacksliding(lambda, TD, D, N, 0.75, G, s(i), K(r), m);
+  end
+ [x22(i), ~] = max(a(1 :g*s(i) ,i));
+  a1(i) =a1(i) +  x22(i)/H;
+  %a1(i) = a1(i) +  kx(i)/(H*s(i));
+ [y22(i), ~] = max(b(1 :g*s(i) ,i));
+  b1(i)= b1(i) + y22(i)/H;
+  %b1(i) =b1(i) +  ky(i)/(H*s(i));
+ [j22(i), ~] = max(c(1 :g*s(i) ,i));
+% c1(i) =c1(i)+ kj(i)/(H*s(i))
+ c1(i)=c1(i) +  j22(i)/H;
+ [r22(i), ~]= max(d(1 : g*s(i), i));
+  d1(i) = r22(i)
+end
+l
+end
+plot(s,a1,s,b1,s, c1, s, d1);
+legend('GB Pe =0.5, lambda = 25', 'Sliding window Pe =0.5, lambda =25', 'GB Pe = 0.75; lambda = 25', 'Sliding window Pe = 0.75, lambda = 25')
+title(['comparison sliding and generation based for TD =60']);
+xlabel('coding window size');
+ylabel('max of number of not expired packets');
+%% second loop :
+% s =  10;
+% for  i = floor(s/2) : n_samples
+%    K(i) = 2*i;
+%   %t(i) = nofeedbackgenerations(lambda, TD, D, N, 0.25, G, s, K(i));
+%    x(i) = nofeedbackgenerations(lambda, 30, D, N, 0.25, G, s, K(i))%/(K(i)*10)
+%    y(i) = nofeedbackgenerations(lambda, 100, D, N, 0.25, G, s, K(i))%/(K(i)*10);
+%    j(i) = nofeedbackgenerations(lambda, 150, D, N, 0.25, G, s, K(i))%/(K(i)*10);
+%    x1(i) = nofeedbackgenerations(100, 30, D, N, 0.75, G, s, K(i))%/(K(i)*10);
+%    y1(i) = nofeedbackgenerations(100, 100, D, N, 0.75, G, s, K(i))%/(K(i)*10);
+%    j1(i) = nofeedbackgenerations(100, 150, D, N, 0.75, G, s, K(i))%/(K(i)*10))
+% end
+% plot(K,x,K,y, K, j, K, x1, K, y1, K, j1);
+% %legend('Pe =0.25, lambda = 1', 'Pe =0.5, lambda = 1','Pe =0.75, lambda=1','Pe =0.25, lambda = 100', 'Pe =0.5, lambda = 100','Pe = 0.75, lambda =100')  
+% legend('Pe =0.25,lambda = 1, TD= 30','Pe =0.25, TD= 100, lambda =1','Pe =0.25, TD=150, lambda = 1','Pe =0.75, TD=30, lambda =100', 'Pe =0.75, TD=100, lambda = 100','Pe = 0.75, TD = 150, lambda =100') 
+% title('not expired packets = f(K) for TD = 30, 100 and 150')% int2str(TD)]);
+% xlabel('K');
+% ylabel('Not expired packets');
+end

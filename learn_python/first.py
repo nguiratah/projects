@@ -1,2 +1,5 @@
-import pandas as pd 
-print ("Hello world")
+from textblob import TextBlob
+wiki = TextBlob("Tahar is angry that he did not find any suitable job")
+print(wiki.tags)
+print(wiki.words)
+print(wiki.sentiment.polarity)
